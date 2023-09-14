@@ -1,0 +1,37 @@
+//CITYGROUP OA
+//https://leetcode.com/problems/non-decreasing-array/description/
+class Solution {
+public:
+    bool solve1(int &prev,int &next,vector<int>& nums){
+        nums[prev]=nums[next];
+        int n=nums.size();
+        for(int i=0;i<n-1;i++){
+            if(nums[i]>nums[i+1])return false;
+        }
+        return true;
+    }
+    bool solve2(int &prev,int &next,vector<int>& nums){
+        nums[next]=nums[prev];
+        int n=nums.size();
+        for(int i=0;i<n-1;i++){
+            if(nums[i]>nums[i+1])return false;
+        }
+        return true;
+    }
+    bool checkPossibility(vector<int>& nums) {
+        int cnt=0;
+        int prev=-1,next=-1;
+        for(int i=0;i<nums.size()-1;i++){
+            if(nums[i]>nums[i+1]){
+                prev=i;
+                next=i+1;
+                break;
+            }
+        }
+        if(prev==-1)return true;
+        vector<int>arr1=nums;
+        vector<int>arr2=nums;
+       if(solve1(prev,next,arr1) || solve2(prev,next,arr2))return true;
+       return false;
+    }
+};
